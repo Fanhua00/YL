@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <context:property-placeholder location="classpath:conf/jdbc.properties"/>
+    <!--（数据源对象获取连接对象Connection）阿里的德鲁伊druid的连接池，委派给spring框架创造连接池对象-->
+    <bean id="myDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+    </bean>
+
+
+    <!--委派创建sqlSessionFactoryd对象-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="myDataSource" />
+        <!--MYbatis配置文件的位置以及数据源对象的赋值-->
+        <property name="configLocation" value="classpath:conf/mybatis.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--该类回去扫描指定包下面的所有接口，每一个都执行一次getMapper（）方法，并把获取到的DAO代理对象放在容器中，名子就是接口名的首字母小写-->
+        <property name="basePackage" value="com.YL.ssm.dao"/>
+    </bean>
+    <!--创建事务管理对象-->
+    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+        <property name="dataSource" ref="myDataSource"/>
+    </bean>
+    <!--注解方式添加事务-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <context:component-scan base-package="com.YL.ssm.service" />
+
+</beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--打印详细信息
+    <settings>
+        <setting name="logImpl" value="stdout_logging"/>
+    </settings>
+    -->
+    <typeAliases>
+        <package name="com.YL.ssm.pojo"/>
+    </typeAliases>
+
+    <mappers>
+        <package name="com.YL.ssm.dao"/>
+    </mappers>
+</configuration>
