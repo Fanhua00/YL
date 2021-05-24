@@ -18,6 +18,12 @@
   </properties>
 
   <dependencies>
+    <!--jstl标签库-->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
     <!--JACKsonjar包的注解,返回JSON数据需要用到创建HttpMessageConverter实现类需要用到-->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
