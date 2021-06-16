@@ -3,6 +3,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <!--<parent>
+    <groupId></groupId>
+    <artifactId></artifactId>
+    <version></version>
+    <relativePath></relativePath>
+  </parent>
+  设定父模块路径，该字模块继承父模块
+  子模块不需要定义组名和版本，从父模块继承过来
+  <dependencyManagement>
+  父模块管理的依赖
+</dependencyManagement>
+  子模块可以直接引用父模块中管理的依赖，不需要指定版本号
+  -->
 
   <groupId>com.YL</groupId>
   <artifactId>ssm</artifactId>
@@ -15,6 +28,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>14</maven.compiler.source>
     <maven.compiler.target>14</maven.compiler.target>
+    <mysql-version>8.0.23</mysql-version>
+    <!--统一管理版本号的方式-->
   </properties>
 
   <dependencies>
@@ -121,7 +136,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.23</version>
+      <version>${mysql-version}</version>
     </dependency>
 
     <!--阿里公司的连接池-->
